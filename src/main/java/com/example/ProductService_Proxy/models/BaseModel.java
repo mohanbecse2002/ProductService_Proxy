@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.Date;
 
+//lombok has usefull annotations like Getter,Setter which saves us from manually adding getter/setter functions.
 @Getter
 @Setter
 public class BaseModel {
