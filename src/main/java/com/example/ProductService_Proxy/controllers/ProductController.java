@@ -1,9 +1,7 @@
 package com.example.ProductService_Proxy.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.ProductService_Proxy.dtos.ProductDto;
+import org.springframework.web.bind.annotation.*;
 
 //RestController is like router in python/flask.
 @RestController
@@ -19,10 +17,25 @@ public class ProductController {
         return "Returns all products!";
     }
 
+    //'@PathVariable' reads {id} from URI and converts to 'Long id'.
     @GetMapping("/{id}")
     public String getSingleProduct(@PathVariable("id") Long id) {
         return "Returns single product for id: " + id;
     }
 
+    @PostMapping
+    //'@RequestBody' reads the JSON body from HTML request, and maps it to the 'productDto' object.
+    public String addNewProduct(@RequestBody ProductDto productDto) {
+        return "Adding new product: " + productDto;
+    }
 
+    @PutMapping("/{id}")
+    public String updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+        return ( "Updating the product: " + id + " with new data: " + productDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        return "Deleting the product: " + id;
+    }
 }
