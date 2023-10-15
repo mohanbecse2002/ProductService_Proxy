@@ -1,6 +1,8 @@
 package com.example.ProductService_Proxy.controllers;
 
+import com.example.ProductService_Proxy.dtos.FakestoreProductDto;
 import com.example.ProductService_Proxy.dtos.ProductDto;
+import com.example.ProductService_Proxy.services.IProductService;
 import org.springframework.web.bind.annotation.*;
 
 //RestController is like router in python/flask.
@@ -9,6 +11,12 @@ import org.springframework.web.bind.annotation.*;
 //So, have a common mapping at this level.
 @RequestMapping("/products")
 public class ProductController {
+
+    //Dependency Injection
+    IProductService productService;
+    public ProductController(IProductService productService){
+        this.productService = productService;
+    }
 
     //Alternate method for GetMapping is @RequestMapping(method = {RequestMethod.GET})
     //the 'path' allows to configure multiple routes for the same function.
@@ -20,7 +28,8 @@ public class ProductController {
     //'@PathVariable' reads {id} from URI and converts to 'Long id'.
     @GetMapping("/{id}")
     public String getSingleProduct(@PathVariable("id") Long id) {
-        return "Returns single product for id: " + id;
+        String res = productService.getSingleProduct(id);
+        return res;
     }
 
     @PostMapping
