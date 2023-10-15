@@ -27,8 +27,8 @@ public class ProductController {
 
     //'@PathVariable' reads {id} from URI and converts to 'Long id'.
     @GetMapping("/{id}")
-    public String getSingleProduct(@PathVariable("id") Long id) {
-        String res = productService.getSingleProduct(id);
+    public ProductDto getSingleProduct(@PathVariable("id") Long id) {
+        ProductDto res = productService.getSingleProduct(id);
         return res;
     }
 

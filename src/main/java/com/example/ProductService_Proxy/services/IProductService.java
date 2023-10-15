@@ -1,5 +1,6 @@
 package com.example.ProductService_Proxy.services;
 
+import com.example.ProductService_Proxy.dtos.FakestoreProductDto;
 import com.example.ProductService_Proxy.dtos.ProductDto;
 
 public interface IProductService {
@@ -7,7 +8,7 @@ public interface IProductService {
     String getAllProduct();
 
     //Get single product
-    String getSingleProduct(Long id);
+    ProductDto getSingleProduct(Long id);
 
     //Add new product
     String addNewProduct(ProductDto productDto);

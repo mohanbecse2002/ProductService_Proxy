@@ -32,19 +32,28 @@ public class ProductService implements IProductService {
 
     //Get single product
     @Override
-    public String getSingleProduct(Long id) {
+    public ProductDto getSingleProduct(Long id) {
         RestTemplate restTemplate = restTemplateBuilder.build();
 
         //getForEntitye(Url, Resonsetype Class, Input Parameter
         FakestoreProductDto fakestoreProductDto =
                 restTemplate.getForEntity("https://fakestoreapi.com/products/{id}", FakestoreProductDto.class, id).getBody();
-        System.out.println("fakstoreProdctDto:" + fakestoreProductDto);
 
-        String res = fakestoreProductDto.toString();
-        System.out.println("res:" + res
-        );
+        //From FakestoreProductDto converto ProductDto
+        ProductDto productDto = getProductDto(fakestoreProductDto);
 
-        return res;
+        return productDto;
+    }
+
+    //From FakestoreProductDto converto ProductDto
+    private ProductDto getProductDto(FakestoreProductDto fakestoreProductDto) {
+        ProductDto productDto = new ProductDto();
+        productDto.setTitle(fakestoreProductDto.getTitle());
+        productDto.setPrice(fakestoreProductDto.getPrice());
+        productDto.setImage(fakestoreProductDto.getImage());
+        productDto.setDescription(fakestoreProductDto.getDescription());
+        productDto.setCategory(fakestoreProductDto.getCategory());
+        return productDto;
     }
 
     //Add new product
